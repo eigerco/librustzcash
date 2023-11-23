@@ -22,6 +22,7 @@ zcash_proofs = { version = "0.12", path = "../zcash_proofs" }
 
 [features]
 transparent-inputs = []
+unstable-nu6 = ["zcash_primitives/unstable-nu6"]
 
 [lib]
 bench = false
