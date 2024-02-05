@@ -98,12 +98,13 @@ orchard = { version = "0.6", default-features = false, features = ["test-depende
 pprof = { version = "0.11", features = ["criterion", "flamegraph"] } # MSRV 1.56
 
 [features]
-default = ["multicore"]
+default = ["multicore", "unstable-txv6"]
 multicore = ["orchard/multicore"]
 transparent-inputs = ["hdwallet", "ripemd", "secp256k1"]
 temporary-zcashd = []
 test-dependencies = ["proptest", "orchard/test-dependencies"]
-unstable-nu6 = []
+unstable-nu6 = ["unstable-txv6"]
+unstable-txv6 = []
 zfuture = []
 
 [lib]
