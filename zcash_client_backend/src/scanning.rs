@@ -5,7 +5,7 @@ use std::convert::TryFrom;
 use std::fmt::{self, Debug};
 use std::hash::Hash;
 
-use incrementalmerkletree::{Marking, Position, Retention};
+use incrementalmerkletree::{Position, Retention};
 use sapling::{
     note_encryption::{CompactOutputDescription, SaplingDomain},
     SaplingIvk,
@@ -1105,11 +1105,7 @@ fn find_received<
         let retention = match (decrypted_note.is_some(), is_checkpoint) {
             (is_marked, true) => Retention::Checkpoint {
                 id: block_height,
-                marking: if is_marked {
-                    Marking::Marked
-                } else {
-                    Marking::None
-                },
+                is_marked,
             },
             (true, false) => Retention::Marked,
             (false, false) => Retention::Ephemeral,
@@ -1394,7 +1390,7 @@ mod tests {
                     Retention::Ephemeral,
                     Retention::Checkpoint {
                         id: scanned_block.height(),
-                        marking: Marking::Marked
+                        is_marked: true
                     }
                 ]
             );
@@ -1470,7 +1466,7 @@ mod tests {
                     Retention::Marked,
                     Retention::Checkpoint {
                         id: scanned_block.height(),
-                        marking: Marking::None
+                        is_marked: false
                     }
                 ]
             );
@@ -1529,7 +1525,7 @@ mod tests {
                 Retention::Ephemeral,
                 Retention::Checkpoint {
                     id: scanned_block.height(),
-                    marking: Marking::None
+                    is_marked: false
                 }
             ]
         );

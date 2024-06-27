@@ -724,6 +724,9 @@ mod tests {
                 None,
                 None,
                 None,
+                #[cfg(zcash_unstable = "zsf")]
+                None,
+                None,
             )
             .freeze()
             .unwrap();
